@@ -12,7 +12,7 @@ using TARge21House.Data;
 namespace TARge21House.Data.Migrations
 {
     [DbContext(typeof(TARge21HouseContext))]
-    [Migration("20230324202322_Init")]
+    [Migration("20230324205458_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,10 @@ namespace TARge21House.Data.Migrations
 
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RoomCount")
                         .HasColumnType("int");

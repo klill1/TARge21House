@@ -1,0 +1,39 @@
+﻿@model IEnumerable<TARge21House.Models.House.HouseIndexViewModel>
+
+@{
+    int rowNumber = 1;
+}
+
+<div class="h1">
+    Houses
+</div>
+
+<form method="post">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nr</th>
+                <th scope="col">Name</th>
+                <th scope="col">Size(m&sup2;)</th>
+                <th scope="col">Room Count</th>
+                <th scope="col">Floors</th>
+                <th scope="col">Color</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var house in Model)
+            {
+                <tr>
+                    <td>@rowNumber</td>
+                    <td>@house.Name</td>
+                    <td>@house.Size</td>
+                    <td>@house.RoomCount</td>
+                    <td>@house.Floors</td>
+                    <td>@house.Color</td>
+                </tr>
+                rowNumber++;
+            }
+        </tbody>
+    </table>
+</form>
