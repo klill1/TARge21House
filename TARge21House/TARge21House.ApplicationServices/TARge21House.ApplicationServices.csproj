@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TARge21House.Data\TARge21House.Data.csproj" />
+  </ItemGroup>
+
 </Project>
