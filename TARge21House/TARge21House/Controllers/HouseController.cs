@@ -117,5 +117,63 @@ namespace TARge21House.Controllers
 
             return RedirectToAction(nameof(Index), vm);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var house = await _houseServices.GetAsync(id);
+            if (house is null)
+            {
+                return NotFound();
+            }
+
+            var vm = new HouseDetailsViewModel();
+
+            vm.Id = house.Id;
+            vm.Name = house.Name;
+            vm.Size = house.Size;
+            vm.RoomCount = house.RoomCount;
+            vm.Floors = house.Floors;
+            vm.Color = house.Color;
+            vm.CreatedAt = house.CreatedAt;
+            vm.ModifiedAt = house.ModifiedAt;
+
+            return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var house = await _houseServices.GetAsync(id);
+            if (house is null)
+            {
+                return NotFound();
+            }
+
+            var vm = new HouseDeleteViewModel();
+
+            vm.Id = house.Id;
+            vm.Name = house.Name;
+            vm.Size = house.Size;
+            vm.RoomCount = house.RoomCount;
+            vm.Floors = house.Floors;
+            vm.Color = house.Color;
+            vm.CreatedAt = house.CreatedAt;
+            vm.ModifiedAt = house.ModifiedAt;
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmation(Guid id)
+        {
+            var houseId = await _houseServices.Delete(id);
+            if (houseId is null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

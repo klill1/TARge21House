@@ -36,7 +36,9 @@
                     <td>@house.Floors</td>
                     <td>@house.Color</td>
                     <td>
+                        <a asp-action="details" asp-controller="house" asp-route-id="@house.Id" class="btn btn-info">Details</a>
                         <a asp-action="update" asp-controller="house" asp-route-id="@house.Id" class="btn btn-primary">Update</a>
+                        <a asp-action="delete" asp-controller="house" asp-route-id="@house.Id" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
                 rowNumber++;
