@@ -1,4 +1,5 @@
-﻿using TARge21House.Core.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using TARge21House.Core.Domain;
 using TARge21House.Core.Dto;
 using TARge21House.Core.ServiceInterface;
 using TARge21House.Data;
@@ -35,11 +36,33 @@ namespace TARge21House.ApplicationServices.Services
 
             return house;
         }
+
+        public async Task<House> GetAsync(Guid id)
+        {
+            var result = await _context.Houses
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return result;
+        }
+
+        public async Task<House> Update(HouseDto dto)
+        {
+            var domain = new House()
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Size = dto.Size,
+                RoomCount = dto.RoomCount,
+                Floors = dto.Floors,
+                Color = dto.Color,
+                CreatedAt = dto.CreatedAt,
+                ModifiedAt = DateTime.Now
+            };
+
+            _context.Houses.Update(domain);
+            await _context.SaveChangesAsync();
+
+            return domain;
+        }
     }
-
-    
-
-
-
-    
 }

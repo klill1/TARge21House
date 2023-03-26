@@ -35,6 +35,9 @@
                     <td>@house.RoomCount</td>
                     <td>@house.Floors</td>
                     <td>@house.Color</td>
+                    <td>
+                        <a asp-action="update" asp-controller="house" asp-route-id="@house.Id" class="btn btn-primary">Update</a>
+                    </td>
                 </tr>
                 rowNumber++;
             }

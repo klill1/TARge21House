@@ -69,5 +69,53 @@ namespace TARge21House.Controllers
 
             return RedirectToAction(nameof(Index), vm);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var house = await _houseServices.GetAsync(id);
+            if (house is null)
+            {
+                return NotFound();
+            }
+
+            var vm = new HouseCreateUpdateViewModel();
+
+            vm.Id = house.Id;
+            vm.Name = house.Name;
+            vm.Size = house.Size;
+            vm.RoomCount = house.RoomCount;
+            vm.Floors = house.Floors;
+            vm.Color = house.Color;
+            vm.CreatedAt = house.CreatedAt;
+            vm.ModifiedAt = house.ModifiedAt;
+
+            return View("CreateUpdate", vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(HouseCreateUpdateViewModel vm)
+        {
+            var dto = new HouseDto()
+            {
+                Id = vm.Id,
+                Name = vm.Name,
+                Size = vm.Size,
+                RoomCount = vm.RoomCount,
+                Floors = vm.Floors,
+                Color = vm.Color,
+                CreatedAt = vm.CreatedAt,
+                ModifiedAt = vm.ModifiedAt
+            };
+
+            var result = await _houseServices.Update(dto);
+
+            if(result is null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index), vm);
+        }
     }
 }

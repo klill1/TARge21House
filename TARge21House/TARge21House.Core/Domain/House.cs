@@ -5,7 +5,7 @@ namespace TARge21House.Core.Domain
     public class House
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string Name { get; set; }
         public int Size { get; set; }
         public int RoomCount { get; set; }
