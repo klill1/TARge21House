@@ -22,6 +22,17 @@ namespace TARge21House.HouseTest
             Assert.True(DateTime.Now > result.ModifiedAt);
         }
 
+        [Fact]
+        public async Task Should_GetAValidId_WithGetAsync()
+        {
+            HouseDto houseDto = CreateHouse();
+            var createHouse = await Svc<IHouseServices>().Create(houseDto);
+
+            var result = await Svc<IHouseServices>().GetAsync((Guid)createHouse.Id);
+            Assert.Equal(createHouse, result);
+        }
+
+        
         private HouseDto CreateHouse()
         {
             HouseDto houseDto = new();
