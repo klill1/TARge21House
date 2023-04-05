@@ -26,13 +26,41 @@ namespace TARge21House.HouseTest
         public async Task Should_GetAValidId_WithGetAsync()
         {
             HouseDto houseDto = CreateHouse();
-            var createHouse = await Svc<IHouseServices>().Create(houseDto);
+            var newHouse = await Svc<IHouseServices>().Create(houseDto);
 
-            var result = await Svc<IHouseServices>().GetAsync((Guid)createHouse.Id);
-            Assert.Equal(createHouse, result);
+            var result = await Svc<IHouseServices>().GetAsync((Guid)newHouse.Id);
+            Assert.Equal(newHouse, result);
         }
 
-        
+        [Fact]
+        public async Task Should_UpdateValidHouse_WhenUpdateData()
+        {
+            HouseDto houseDto = CreateHouse();
+            var newHouse = await Svc<IHouseServices>().Create(houseDto);
+
+            HouseDto update = UpdateHouse();        
+            var result = await Svc<IHouseServices>().Update(update);
+
+            Assert.Equal(update.Id, houseDto.Id);
+            Assert.DoesNotMatch(newHouse.Name, result.Name);
+            Assert.NotEqual(newHouse.Size, result.Size);
+            Assert.NotEqual(newHouse.RoomCount, result.RoomCount);
+            Assert.NotEqual(newHouse.Floors, result.Floors);
+            Assert.DoesNotMatch(newHouse.Color, result.Color);
+            Assert.NotEqual(newHouse.ModifiedAt, result.ModifiedAt);
+        }
+
+        [Fact]
+        public async Task ShouldBeDeleted_WhenIdIsFound()
+        {
+            HouseDto houseDto = CreateHouse();
+            var newHouse = await Svc<IHouseServices>().Create(houseDto);
+
+            var result = await Svc<IHouseServices>().Delete((Guid)newHouse.Id);
+            Assert.Equal(newHouse, result);
+        }
+
+
         private HouseDto CreateHouse()
         {
             HouseDto houseDto = new();
@@ -43,6 +71,20 @@ namespace TARge21House.HouseTest
             houseDto.Color = "blue";
 
             return houseDto;
+        }
+
+        private HouseDto UpdateHouse()
+        {
+            HouseDto update = new()
+            {
+                Name = "Kong",
+                Size = 5,
+                RoomCount = 2,
+                Floors = 1,
+                Color = "yellow",
+            };
+
+            return update;
         }
     }
 }
