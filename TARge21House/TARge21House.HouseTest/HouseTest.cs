@@ -60,7 +60,6 @@ namespace TARge21House.HouseTest
             Assert.Equal(newHouse, result);
         }
 
-
         private HouseDto CreateHouse()
         {
             HouseDto houseDto = new();

@@ -34,6 +34,7 @@ namespace TARge21House.Controllers
                     Floors = x.Floors,
                     Color = x.Color
                 });
+
             return View(result);
         }
 
@@ -110,7 +111,7 @@ namespace TARge21House.Controllers
 
             var result = await _houseServices.Update(dto);
 
-            if(result is null)
+            if (result is null)
             {
                 return RedirectToAction(nameof(Index));
             }
